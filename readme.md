@@ -5,4 +5,4 @@
 # Rfid reader
 	RFID UHF URD with badge
 
-ps: UGLY CODE ^^ lol
+ps: uglycode ^^ lol
