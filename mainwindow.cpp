@@ -100,7 +100,7 @@ void MainWindow::on_pushButton_clicked(){
        envoi += QString::number(Data[i],16).toUpper();
         envoi += " ";
     }
-    ui->label_3->setText(envoi);
+         ui->label_3->setText(envoi);
 
    unsigned long taille = 15;
    WriteFile(serie,Data,taille,&taille,0);
@@ -163,7 +163,7 @@ void MainWindow::on_pushButton_2_clicked(){
     Inven->start(4000);
 }
 
-void MainWindow::Inventory(){
+QString* MainWindow::Inventory(){
     COMSTAT etat;
     ClearCommError(serie,0,&etat);
     unsigned long nb_lus;
@@ -189,14 +189,13 @@ void MainWindow::Inventory(){
 
     int x = 10;
     int y = 0;
-    int taille_EPC = 11;
-    QString arcticle;
+    taille_EPC = 11;
+    QString EPC[nb];
 
    //cut de la trame pour correspondre au ticket
-    while(y < nb){
-     QString EPC;
+     while(y < nb){
+
      unsigned char Data[16];
-     QString arcticle;
 
      for(int i =0;i<16;i++){
          Data[i] = temp[x];
@@ -204,15 +203,15 @@ void MainWindow::Inventory(){
      }
 
      for(int i =11;i<13;i++){
-         EPC += QString::number(Data[i],16).toUpper();
-     }   EPC += " ";
+         EPC[y] += QString::number(Data[i],16).toUpper();
+     }   EPC[y] += " ";
 
-    ui->textEdit->append(EPC+"\n");
+     ui->textEdit->append(EPC[y]+"\n");
     y++;
     //x+=sizeof(Data);
 }
 
-    Inven->stop();
+    return EPC;
 }
 
 MainWindow::~MainWindow(){
@@ -220,3 +219,8 @@ MainWindow::~MainWindow(){
 }
 
 
+
+
+void MainWindow::on_pushButton_3_clicked(){
+    Inven->stop();
+}
