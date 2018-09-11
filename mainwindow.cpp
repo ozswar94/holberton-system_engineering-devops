@@ -23,13 +23,13 @@ MainWindow::MainWindow(QWidget *parent):
     if(serie == INVALID_HANDLE_VALUE)
         ui->label->setText("erreur COM1");
     else{
-	ui->label->setText("COM1 OK");
-    GetCommState(serie, &dcb);
-    dcb.BaudRate = BAUDRATE;
-    dcb.Parity = NOPARITY;
-    dcb.ByteSize = BYTESIZE;
-    dcb.StopBits = ONESTOPBIT;
-    SetCommState(serie, &dcb);
+		ui->label->setText("COM1 OK");
+    	GetCommState(serie, &dcb);
+    	dcb.BaudRate = BAUDRATE;
+    	dcb.Parity = NOPARITY;
+    	dcb.ByteSize = BYTESIZE;
+    	dcb.StopBits = ONESTOPBIT;
+    	SetCommState(serie, &dcb);
 	}
     Anten = new QTimer(this);
     connect(Anten, SIGNAL(timeout()), this, SLOT(Get_HealthParameters()));
@@ -104,10 +104,10 @@ void MainWindow::on_pushButton_clicked(){
     for(int i = 0; i < 15 ; i++){
        envoi += QString::number(Data[i], 16).toUpper();
        envoi += " ";
-    }
-         ui->label_3->setText(envoi);
-   WriteFile(serie,Data,taille, &taille, 0);
-   Anten->start(TIMER);
+   	}
+	ui->label_3->setText(envoi);
+	WriteFile(serie,Data,taille, &taille, 0);
+	Anten->start(TIMER);
 }
 
 void MainWindow::Get_HealthParameters(){
