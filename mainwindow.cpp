@@ -24,17 +24,17 @@ MainWindow::MainWindow(QWidget *parent):
         ui->label->setText("erreur COM1");
     else{
 		ui->label->setText("COM1 OK");
-    	GetCommState(serie, &dcb);
-    	dcb.BaudRate = BAUDRATE;
-    	dcb.Parity = NOPARITY;
-    	dcb.ByteSize = BYTESIZE;
-    	dcb.StopBits = ONESTOPBIT;
-    	SetCommState(serie, &dcb);
+		GetCommState(serie, &dcb);
+		dcb.BaudRate = BAUDRATE;
+		dcb.Parity = NOPARITY;
+		dcb.ByteSize = BYTESIZE;
+		dcb.StopBits = ONESTOPBIT;
+		SetCommState(serie, &dcb);
 	}
-    Anten = new QTimer(this);
-    connect(Anten, SIGNAL(timeout()), this, SLOT(Get_HealthParameters()));
-    Inven = new QTimer(this);
-    connect(Inven, SIGNAL(timeout()), this, SLOT(Inventory()));
+	Anten = new QTimer(this);
+	connect(Anten, SIGNAL(timeout()), this, SLOT(Get_HealthParameters()));
+	Inven = new QTimer(this);
+	connect(Inven, SIGNAL(timeout()), this, SLOT(Inventory()));
 }
 
 //fonction de du crc
