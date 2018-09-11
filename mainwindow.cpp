@@ -1,13 +1,14 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#define	START	0X02
-#define	LONG	0X00
-#define	LONG2	0X08
-#define	CTRL	0X00
-#define	BAUDRATE	115200
-#define	BYTESIZE	8
-#define	TIMER	4000
+#define START	0X02
+#define LONG	0X00
+#define LONG2	0X08
+#define CTRL	0X00
+#define TIMER	4000
+
+#define BAUDRATE	115200
+#define BYTESIZE	8
 
 using namespace std;
 
