@@ -16,7 +16,6 @@ class MainWindow : public QMainWindow{
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    unsigned char* calc_crc(unsigned char[],unsigned int);
 private:
     Ui::MainWindow *ui;
     HANDLE serie;
