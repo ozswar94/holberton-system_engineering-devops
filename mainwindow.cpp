@@ -12,6 +12,7 @@
 #define BAUDRATE	115200
 #define BYTESIZE	8
 
+
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindow){
@@ -66,10 +67,10 @@ static unsigned char* calc_crc(unsigned char donnee[], unsigned int size){
 
 //TestLecteur Commande Etat du lecteur
 void MainWindow::on_pushButton_clicked(){
-	int N = 12;
-	unsigned char Data[50];
-	unsigned long taille = 15;
-	unsigned char* buffer = calc_crc(Data, N);
+	const int size = 12;
+	unsigned char data[50];
+	unsigned long data_size;
+	unsigned char* buffer;
 	QString envoi;
 
 	Data[0] = START;
@@ -86,14 +87,17 @@ void MainWindow::on_pushButton_clicked(){
 	Data[10] = 0x55;
 	Data[11] = 0x00;
 	Data[12] = 0x00;
+	//Add CRC in the trame
+	buffer = calc_crc(data, size);
 	Data[13] = buffer[0];
 	Data[14] = buffer[1];
-
-	for(int i = 0; i < 15 ; i++){
-		envoi += QString::number(Data[i], 16).toUpper();
+	
+	data_size = sizeof(data);
+	for(int i = 0; i < data_size ; i++){
+		envoi += QString::number(data[i], 16).toUpper();
 		envoi += " ";
 	}
-
+	
 	ui->label_3->setText(envoi);
 	WriteFile(serie,Data,taille, &taille, 0);
 	Anten->start(TIMER);
@@ -101,14 +105,14 @@ void MainWindow::on_pushButton_clicked(){
 
 void MainWindow::Get_HealthParameters(){
     COMSTAT etat;
-    unsigned long nb_lus;
+    unsigned long nb_lus = 0;
     QString message;
     
 	ClearCommError(serie,0,&etat);
     if(etat.cbInQue)
         ReadFile(serie,temp,etat.cbInQue,&nb_lus,0);
 
-   for(int i = 0; i < etat.cbInQue;i++){
+   for(int i = 0; i < etat.cbInQue; i++){
        message += QString::number(temp[i], 16).toUpper();
        message += " ";
    }
@@ -118,81 +122,83 @@ void MainWindow::Get_HealthParameters(){
 }
 
 void MainWindow::on_pushButton_2_clicked(){
-	int N = 12;
-	unsigned char Data[100];
-	unsigned char* buffer = calc_crc(Data,N);
-	unsigned long taille = sizeof(Data);
+	const int size = 12;
+	unsigned char data[100];
+	unsigned char* buffer;
+	unsigned long data_size;
 	QString envoi;
 
-    Data[0] = START;
-    Data[1] = LONG;
-    Data[2] = LONG2;
-    Data[3] = CTRL;
-    Data[4] = CTRL;
+    data[0] = START;
+    data[1] = LONG;
+    data[2] = LONG2;
+    data[3] = CTRL;
+    data[4] = CTRL;
 	//Commande
-	Data[5] = 0x00;
-	Data[6] = 0x08;
-	Data[7] = 0x00;
-	Data[8] = 0x01;
-    Data[9] = 0xAA;
-    Data[10] = 0x55;
-    Data[11] = 0x00;
-    Data[12] = 0x00;
-    Data[13] = buffer[0];
-    Data[14] = buffer[1];
+	data[5] = 0x00;
+	data[6] = 0x08;
+	data[7] = 0x00;
+	data[8] = 0x01;
+    data[9] = 0xAA;
+    data[10] = 0x55;
+    data[11] = 0x00;
+    data[12] = 0x00;
+	//Add CRC in the trame
+	buffer = calc_crc(Data, size);
+    data[13] = buffer[0];
+    data[14] = buffer[1];
 
-	for(int i = 0; i < taille; i++){
-        envoi += QString::number(Data[i], 16).toUpper();
+	data_size = sizeof(data);
+	for(int i = 0; i < data_size; i++){
+        envoi += QString::number(data[i], 16).toUpper();
         envoi += " ";
     }
 
-	WriteFile(serie, Data, taille, &taille, 0);
+	WriteFile(serie, data, data_size, &data_size, 0);
 	Inven->start(TIMER);
 }
 
 QString* MainWindow::Inventory(){
     COMSTAT etat;
     ClearCommError(serie,0,&etat);
-    unsigned long nb_lus;
+    unsigned long nb_read;
     QString message;
     bool ok;
     int x = 10;
     int y = 0;
-    taille_EPC = 11;
+	QString nb_article;
+	int nb;
+    size_EPC = 11;
 
     if(etat.cbInQue)
-        ReadFile(serie,temp,etat.cbInQue,&nb_lus,0);
-
+        ReadFile(serie,temp,etat.cbInQue,&nb_read,0);
     for(int i = 0; i<etat.cbInQue;i++){
         message += QString::number(temp[i],16).toUpper();
-       message += " ";
+		message += " ";
     }
 
     ui->textEdit->append("Message reçue : "+message);
-    QString nb_article = QString::number(temp[9],16).toUpper();
-    
-	int nb = nb_article.toInt(&ok,10);
-    
+    nb_article = QString::number(temp[9],16).toUpper();
+	nb = nb_article.toInt(&ok,10);
 	ui->textEdit->append("Nombre article : "+nb_article+ "\n");
     QString EPC[nb];
 
    //cut de la trame pour correspondre au ticket
      while(y < nb){
-     	unsigned char Data[16];
+     	unsigned char data[16];
 
      	for(int i =0;i<16;i++){
-        	 Data[i] = temp[x];
+        	 data[i] = temp[x];
          	x++;
      	}
 
      	for(int i =11;i<13;i++){
-        	EPC[y] += QString::number(Data[i],16).toUpper();
+        	EPC[y] += QString::number(data[i],16).toUpper();
      		EPC[y] += " ";
 		}
 
      ui->textEdit->append(EPC[y]+"\n");
 	 y++;
-    //x+=sizeof(Data);
+    //x+=sizeof(data);
 	}
     
 	return EPC;

@@ -19,7 +19,6 @@ public:
 private:
     Ui::MainWindow *ui;
     HANDLE serie;
-    unsigned short crc_init;
     DCB dcb;
     QTimer *Anten;
     QTimer *Inven;
