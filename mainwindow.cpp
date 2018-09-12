@@ -104,21 +104,21 @@ void MainWindow::on_pushButton_clicked(){
 }
 
 void MainWindow::Get_HealthParameters(){
-    COMSTAT etat;
-    unsigned long nb_lus = 0;
-    QString message;
-    
+	COMSTAT etat;
+	unsigned long nb_lus = 0;
+	QString message;
+
 	ClearCommError(serie,0,&etat);
-    if(etat.cbInQue)
-        ReadFile(serie,temp,etat.cbInQue,&nb_lus,0);
+	if(etat.cbInQue)
+		ReadFile(serie,temp,etat.cbInQue,&nb_lus,0);
 
-   for(int i = 0; i < etat.cbInQue; i++){
-       message += QString::number(temp[i], 16).toUpper();
-       message += " ";
-   }
+	for(int i = 0; i < etat.cbInQue; i++){
+		message += QString::number(temp[i], 16).toUpper();
+		message += " ";
+	}
 
-     ui->lineEdit->setText(message);
-     Anten->stop();
+	ui->lineEdit->setText(message);
+	Anten->stop();
 }
 
 void MainWindow::on_pushButton_2_clicked(){
@@ -128,79 +128,78 @@ void MainWindow::on_pushButton_2_clicked(){
 	unsigned long data_size;
 	QString envoi;
 
-    data[0] = START;
-    data[1] = LONG;
-    data[2] = LONG2;
-    data[3] = CTRL;
-    data[4] = CTRL;
+	data[0] = START;
+	data[1] = LONG;
+	data[2] = LONG2;
+	data[3] = CTRL;
+	data[4] = CTRL;
 	//Commande
 	data[5] = 0x00;
 	data[6] = 0x08;
 	data[7] = 0x00;
 	data[8] = 0x01;
-    data[9] = 0xAA;
-    data[10] = 0x55;
-    data[11] = 0x00;
-    data[12] = 0x00;
+	data[9] = 0xAA;
+	data[10] = 0x55;
+	data[11] = 0x00;
+	data[12] = 0x00;
 	//Add CRC in the trame
 	buffer = calc_crc(Data, size);
-    data[13] = buffer[0];
-    data[14] = buffer[1];
+	data[13] = buffer[0];
+	data[14] = buffer[1];
 
 	data_size = sizeof(data);
 	for(int i = 0; i < data_size; i++){
-        envoi += QString::number(data[i], 16).toUpper();
-        envoi += " ";
-    }
+		envoi += QString::number(data[i], 16).toUpper();
+		envoi += " ";
+	}
 
 	WriteFile(serie, data, data_size, &data_size, 0);
 	Inven->start(TIMER);
 }
 
 QString* MainWindow::Inventory(){
-    COMSTAT etat;
-    ClearCommError(serie,0,&etat);
-    unsigned long nb_read;
-    QString message;
-    bool ok;
-    int x = 10;
-    int y = 0;
+	COMSTAT etat;
+	ClearCommError(serie,0,&etat);
+	unsigned long nb_read;
+	QString message;
+	bool ok;
+	int x = 10;
+	int y = 0;
 	QString nb_article;
 	int nb;
-    size_EPC = 11;
+	size_EPC = 11;
 
-    if(etat.cbInQue)
-        ReadFile(serie,temp,etat.cbInQue,&nb_read,0);
-    for(int i = 0; i<etat.cbInQue;i++){
-        message += QString::number(temp[i],16).toUpper();
-		message += " ";
-    }
-
-    ui->textEdit->append("Message reçue : "+message);
-    nb_article = QString::number(temp[9],16).toUpper();
-	nb = nb_article.toInt(&ok,10);
-	ui->textEdit->append("Nombre article : "+nb_article+ "\n");
-    QString EPC[nb];
-
-   //cut de la trame pour correspondre au ticket
-     while(y < nb){
-     	unsigned char data[16];
-
-     	for(int i =0;i<16;i++){
-        	 data[i] = temp[x];
-         	x++;
-     	}
-
-     	for(int i =11;i<13;i++){
-        	EPC[y] += QString::number(data[i],16).toUpper();
-     		EPC[y] += " ";
+	if(etat.cbInQue)
+		ReadFile(serie,temp,etat.cbInQue,&nb_read,0);
+		for(int i = 0; i<etat.cbInQue;i++){
+			message += QString::number(temp[i],16).toUpper();
+			message += " ";
 		}
 
-     ui->textEdit->append(EPC[y]+"\n");
-	 y++;
-    //x+=sizeof(data);
+	ui->textEdit->append("Message reçue : "+message);
+	nb_article = QString::number(temp[9],16).toUpper();
+	nb = nb_article.toInt(&ok,10);
+	ui->textEdit->append("Nombre article : "+nb_article+ "\n");
+	QString EPC[nb];
+	
+	//cut de la trame pour correspondre au ticket
+	while(y < nb){
+		unsigned char data[16];
+
+		for(int i =0;i<16;i++){
+			data[i] = temp[x];
+			x++;
+		}
+		for(int i =11;i<13;i++){
+			EPC[y] += QString::number(data[i],16).toUpper();
+			EPC[y] += " ";
+		}
+
+	ui->textEdit->append(EPC[y]+"\n");
+	y++;
+	//x+=sizeof(data);
 	}
-    
+
 	return EPC;
 }
 
@@ -209,6 +208,6 @@ void MainWindow::on_pushButton_3_clicked(){
 }
 
 MainWindow::~MainWindow(){
-    delete ui;
+	delete ui;
 }
 
