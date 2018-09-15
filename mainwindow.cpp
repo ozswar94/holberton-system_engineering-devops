@@ -73,24 +73,24 @@ void MainWindow::on_pushButton_clicked(){
 	unsigned char* buffer;
 	QString envoi;
 
-	Data[0] = START;
-	Data[1] = LONG;
-	Data[2] = LONG2;
-	Data[3] = CTRL;
-	Data[4] = CTRL;
+	data[0] = START;
+	data[1] = LONG;
+	data[2] = LONG2;
+	data[3] = CTRL;
+	data[4] = CTRL;
 	//Commande
-	Data[5] = 0x00;
-	Data[6] = 0x00;
-	Data[7] = 0x00;
-	Data[8] = 0x24;
-	Data[9] = 0xAA;
-	Data[10] = 0x55;
-	Data[11] = 0x00;
-	Data[12] = 0x00;
+	data[5] = 0x00;
+	data[6] = 0x00;
+	data[7] = 0x00;
+	data[8] = 0x24;
+	data[9] = 0xAA;
+	data[10] = 0x55;
+	data[11] = 0x00;
+	data[12] = 0x00;
 	//Add CRC in the trame
 	buffer = calc_crc(data, size);
-	Data[13] = buffer[0];
-	Data[14] = buffer[1];
+	data[13] = buffer[0];
+	data[14] = buffer[1];
 	
 	data_size = sizeof(data);
 	for(int i = 0; i < data_size ; i++){
