@@ -15,7 +15,8 @@
 
 using namespace std;
 
-MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindow){
+MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindow)
+{
 	ui->setupUi(this);
 	char  port[6] = "COM1:";
 
@@ -43,7 +44,8 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
 
 //------------------------------- Calcul du CRC 16 CCITT --------------
 
-static unsigned char* calc_crc(unsigned char donnee[], unsigned int size){
+static unsigned char* calc_crc(unsigned char donnee[], unsigned int size)
+{
 	unsigned int crc_init = MASK1;
 	char index;
 	unsigned int i;
@@ -66,7 +68,8 @@ static unsigned char* calc_crc(unsigned char donnee[], unsigned int size){
 }
 
 //TestLecteur Commande Etat du lecteur
-void MainWindow::on_pushButton_clicked(){
+void MainWindow::on_pushButton_clicked()
+{
 	const int size = 12;
 	unsigned char data[50];
 	unsigned long data_size;
@@ -103,7 +106,8 @@ void MainWindow::on_pushButton_clicked(){
 	Anten->start(TIMER);
 }
 
-void MainWindow::Get_HealthParameters(){
+void MainWindow::Get_HealthParameters()
+{
 	COMSTAT etat;
 	unsigned long nb_lus = 0;
 	QString message;
@@ -121,7 +125,8 @@ void MainWindow::Get_HealthParameters(){
 	Anten->stop();
 }
 
-void MainWindow::on_pushButton_2_clicked(){
+void MainWindow::on_pushButton_2_clicked()
+{
 	const int size = 12;
 	unsigned char data[100];
 	unsigned char* buffer;
@@ -157,7 +162,8 @@ void MainWindow::on_pushButton_2_clicked(){
 	Inven->start(TIMER);
 }
 
-QString* MainWindow::Inventory(){
+QString* MainWindow::Inventory()
+{
 	COMSTAT etat;
 	ClearCommError(serie,0,&etat);
 	unsigned long nb_read;
@@ -203,7 +209,8 @@ QString* MainWindow::Inventory(){
 	return EPC;
 }
 
-void MainWindow::on_pushButton_3_clicked(){
+void MainWindow::on_pushButton_3_clicked()
+{
 	Inven->stop();
 }
 
