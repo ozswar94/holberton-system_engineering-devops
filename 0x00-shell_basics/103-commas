@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -ap1 |sed ':a;N;$!ba;s/\n/, /g'
+ls -apv | cat -e|tr "$\n" ", "|sed 's/.$//g'| sed 's/.$/\n/g'
