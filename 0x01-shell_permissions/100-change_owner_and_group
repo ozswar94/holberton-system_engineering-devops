@@ -1,2 +1,2 @@
 #!/bin/bash
-find . -type d -exec sudo chown vincent:staff {} +
+sudo chown -R vincent:staff *
