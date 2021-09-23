@@ -1,2 +1,2 @@
 #!/bin/bash
-find . -user guillaume -exec sudo chown vincent {} +
+sudo chown --from=guillaume vincent hello
