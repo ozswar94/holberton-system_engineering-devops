@@ -3,3 +3,6 @@ list
 
 #gif file
 *.gif
+
+#hidden file
+.*

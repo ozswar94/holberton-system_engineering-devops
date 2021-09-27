@@ -1,2 +1,2 @@
 #!/bin/bash
-find . -empty -printf '%f\n'| cut -d, -f2|rev| cut -f 2- -d '.'|rev| LC_ALL=C sort 
+find . -empty -printf '%f\n'| cut -d, -f2|rev| cut -f 2- -d '.'|rev| sort 
