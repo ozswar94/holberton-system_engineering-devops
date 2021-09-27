@@ -1,2 +1,5 @@
 #file test
 list
+
+#gif file
+*.gif
