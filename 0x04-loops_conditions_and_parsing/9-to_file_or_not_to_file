@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 #check the file school
 
 if [ -e "school" ]
