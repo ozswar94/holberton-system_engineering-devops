@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 #print 10 times "Best School" at 4th occurence print "bad luck" and at 8 occurence print "good luck"
 
 i=0
