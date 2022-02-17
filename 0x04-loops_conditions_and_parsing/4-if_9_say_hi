@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+#print 10 times "Best School" at 9th occurence print "Hi"
+
+i=0
+
+while [ $i -lt 10 ]
+do
+	if [ $i -ne 8 ]
+	then
+		echo "Best School"
+	else
+		echo "Hi"
+	fi
+
+	i=$(( i+1 ))
+done
+

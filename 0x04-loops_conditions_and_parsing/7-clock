@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+#print hour and minute until hour less than 13
+
+hour=0
+
+while [ $hour -le 12 ]
+do
+	min=1
+	echo "Hour: $hour"
+	while [ $min -lt 60 ]
+	do
+		echo "$min"
+		((min++))
+	done
+	((hour++))
+done
