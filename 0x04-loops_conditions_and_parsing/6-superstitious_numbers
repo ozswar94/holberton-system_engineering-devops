@@ -16,6 +16,5 @@ do
 	then
 		echo "bad luck from Italy"
 	fi
-	i=$(( i+1 ))
+	((i++))
 done
-
