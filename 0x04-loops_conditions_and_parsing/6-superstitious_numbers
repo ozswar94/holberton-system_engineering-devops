@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 #print 20 times 1 to 20 at 4th occurence print "bad luck from China"
 # at 9th occurence print "bad luck from Japan"
 # ar 17th occurence print "bad luck from Italy"

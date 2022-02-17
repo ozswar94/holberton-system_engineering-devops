@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 #print 10 times "Best School" at 9th occurence print "Hi"
 
 i=0

@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 #print 10 times "Best School" with until loop
 
 i=0

@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 #print username + uid + home directory
 
 while IFS=':' read -r user pass uid gid uid_info home shell

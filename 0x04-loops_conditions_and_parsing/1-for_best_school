@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 #print the content of command `ls` with cut at char '-'
 
 

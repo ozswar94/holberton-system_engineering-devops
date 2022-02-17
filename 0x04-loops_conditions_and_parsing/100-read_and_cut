@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 #print username + uid + home directory
 
 while read -r line

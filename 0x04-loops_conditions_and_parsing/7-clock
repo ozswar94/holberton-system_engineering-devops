@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 #print hour and minute until hour less than 13
 
 hour=0
