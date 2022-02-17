@@ -3,15 +3,14 @@
 
 i=0
 
-while [ $i -lt 10 ]
+while [ $i -le 10 ]
 do
-	if [ $i -ne 8 ]
+	if [ $i -ne 9 ]
 	then
 		echo "Best School"
 	else
 		echo "Hi"
 	fi
-
-	i=$(( i+1 ))
+	((i++))
 done
 
