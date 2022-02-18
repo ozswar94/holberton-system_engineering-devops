@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#print "To infinity and beyond" indefinitely if SIGTERM print "I Am invincilbei!!!"
+
+trap 'echo I am invincible!!!' TERM
+while true
+do
+	echo "To infinity and beyond"
+	sleep 2
+done

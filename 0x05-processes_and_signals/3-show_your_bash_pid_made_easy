@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#print process parsing bash
+
+pgrep -l bash

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#stop task 4
+
+kill -9 "$(pgrep -f ./7-highlander)"
