@@ -3,12 +3,13 @@
 
 echo $$ > /var/run/myscript.pid
 
-trap 'echo I hate the kill command' SEGTERM
-trap 'echo Y U no love me?!' SIGINT
-trap 'rm -rf /var/run/my.pid' SIGQUIT
+trap "echo I hate the kill command; rm -rf /var/run/myscript.pid; exit" SIGTERM
+trap "echo Y U no love me?!" SIGINT
+trap "rm -rf /var/run/my.pid; exit" SIGQUIT
 
 while true
 do
 	echo "To infinity and beyond"
+	sleep 2
 done
 
