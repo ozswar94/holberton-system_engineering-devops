@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 #print process parsing bash
 # shellcheck disable=SC2009
+
 ps uaxf | grep bash 
