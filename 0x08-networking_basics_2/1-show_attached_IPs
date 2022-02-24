@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#print ipv4 address
+
+ifconfig | grep 'inet '|tr ' ' ','|cut -d , -f 10
