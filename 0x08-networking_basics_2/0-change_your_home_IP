@@ -2,5 +2,6 @@
 # resolve localhost and facebook
 
 cp /etc/hosts ~/hosts.new
-sed s/^127.0.0.1/127.0.0.2/ ~/hosts.new | sed s/^157.240.11.35/8.8.8.8/ > ~/hosts.new
+sed -i s/^127.0.0.1/127.0.0.2/ ~/hosts.new 
+sed -i s/^157.240.11.35/8.8.8.8/ ~/hosts.new
 cp -f ~/hosts.new /etc/hosts
