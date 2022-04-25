@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Configure Nginx for server name HEADER
+apt-get -y update
+apt-get -y install nginx
+# 1 Return a page Holberton School
+echo "Holberton School" | tee /var/www/html/index.html
+# 2 redirection page
+TEXT="location /redirect_me {\\n return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\\n}\\n"
+sudo sed -i "42i $TEXT" /etc/nginx/sites-enabled/default
+# 3 HTTP 404 error page inclu Ceci n'est pas une page
+echo "Ceci n'est pas une page" | tee /var/www/html/404.html
+CUSTOM="error_page 404 /404.html;\nlocation = /404.html {\nroot /var/www/html;\ninternal;\n}"
+sed -i "/server_name _;/a $CUSTOM" /etc/nginx/sites-enabled/default
+# 0 LOADBALANCER ajouter un nouvelle attribut header
+ADD_HEAD="add_header X-Served-By \$hostname;\n"
+sed -i "/server_name _;/a $ADD_HEAD" /etc/nginx/sites-enabled/default
+nginx -t
+service nginx restart
