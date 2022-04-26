@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Install loadbalancer
+apt-get update -y
+apt-get install haproxy -y
+EN_INIT="ENABLED=1"
+sed -i "/# treat it as a shell script fragment./a $EN_INIT" /etc/default/haproxy
+ADD_LOAD="listen 34.148.227.137:80\n\tmode http\n\tstats enable\n\tstats uri /haproxy?status\n\tbind :80\n\tbalance roundrobin\n\tserver 3630-web-01 34.139.53.21:80 check\n\tserver 3630-web-02 35.196.110.215:80 check"
+sed -i "/errorfile 504 \/etc\/haproxy\/errors\/504.http/a $ADD_LOAD" /etc/haproxy/haproxy.cfg
+service haproxy restart
