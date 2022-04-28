@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # print info DNS
 
+
 function take_line ()
 {
 	domain=$1
@@ -9,4 +10,9 @@ function take_line ()
 	echo $result | cut -d ' ' -f4,5 | awk -v s=$subdomain '{print "The subdomain " s " is a " $1 " record and points to " $2}'
 }
 
-take_line "$1" "$2";
+subdomains=( ${2:-www lb-01 web-01 web-02} )
+domain=$1
+
+for subdomain in "${subdomains[@]}"; do
+	take_line "$domain" "$subdomain"
+done
