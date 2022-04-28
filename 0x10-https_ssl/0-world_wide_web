@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# print info DNS
+
+function take_line ()
+{
+	domain=$1
+	subdomain=$2
+	result=$(dig "$subdomain.$domain" | grep -A1 'ANSWER SECTION:'| grep "$subdomain");
+	echo $result | cut -d ' ' -f4,5 | awk -v s=$subdomain '{print "The subdomain " s " is a " $1 " record and points to " $2}'
+}
+
+take_line "$1" "$2";
