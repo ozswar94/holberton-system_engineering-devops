@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
-# Check the user with the command who am i
-
+# first task
 sudo -H -u "$1" bash -c 'whoami'
