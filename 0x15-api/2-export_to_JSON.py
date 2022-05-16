@@ -18,7 +18,7 @@ if __name__ == '__main__':
         content = {
                     "task": t.get("title"),
                     "completed": t.get("completed"),
-                    "username": user.get('name')
+                    "username": user.get('username')
                 }
         content_json['2'].append(content)
 
