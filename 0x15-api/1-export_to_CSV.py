@@ -15,11 +15,6 @@ if __name__ == '__main__':
 
     with open("{}.csv".format(user.get('id')), 'w') as f:
         writer = csv.writer(f)
-		  for t in todo:
-            line = [
-                user.get('id'),
-                user.get('name'),
-                t.get('completed'),
-                t.get('title'))
-					 ]
+        for t in todo:
+            line = [user.get('id'), user.get('name'), t.get('completed'), t.get('title')]
             writer.writerow(line)
