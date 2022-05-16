@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ export to csv """
-import sys
 import requests
+import sys
 
 
 if __name__ == '__main__':
