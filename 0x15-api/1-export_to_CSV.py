@@ -16,5 +16,10 @@ if __name__ == '__main__':
     with open("{}.csv".format(id), 'w') as f:
         writer = csv.writer(f, quoting=csv.QUOTE_ALL)
         for t in todo:
-            line = [id, user.get('name'), t.get('completed'), t.get('title')]
+            line = [
+                    id,
+                    user.get('username'),
+                    t.get('completed'),
+                    t.get('title')
+                    ]
             writer.writerow(line)
