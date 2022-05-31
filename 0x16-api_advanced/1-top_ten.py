@@ -4,9 +4,7 @@ import requests
 
 
 def top_ten(subreddit):
-    """
-    this function return the top 10 in subreddit
-    """
+    """this function return the top 10 in subreddit"""
     header = {'user-agent': 'APP-Subreddits'}
     payload = {'limit': 10}
     url = 'https://www.reddit.com/r/{}/hot.json'.format(subreddit)
