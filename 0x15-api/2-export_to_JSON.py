@@ -6,7 +6,7 @@ import sys
 
 
 if __name__ == '__main__':
-    id = str(sys.argv[1])
+    id = sys.argv[1]
     u_url = "https://jsonplaceholder.typicode.com/users/{}".format(id)
     t_url = "https://jsonplaceholder.typicode.com/users/{}/todos".format(id)
 
@@ -18,9 +18,9 @@ if __name__ == '__main__':
         content = {
                     "task": t.get("title"),
                     "completed": t.get("completed"),
-                    "username": user.get('name')
+                    "username": user.get('username')
                 }
-        content_json['2'].append(content)
+        content_json[str(id)].append(content)
 
     filename = "{}.json".format(id)
     with open(filename, 'w') as f:
