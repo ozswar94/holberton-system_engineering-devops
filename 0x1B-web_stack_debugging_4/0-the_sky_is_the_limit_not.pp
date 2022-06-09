@@ -6,6 +6,6 @@ exec { 'fix error':
 }
 
 exec { 'restart ngnix server':
-    path    => '/usr/local/bin/:/bin/',
+    path    => '/usr/local/bin/:/bin/:/usr/bin/',
     command => 'sudo service nginx restart'
 }
