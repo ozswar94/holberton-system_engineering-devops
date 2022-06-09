@@ -2,7 +2,7 @@
 
 exec { 'fix error':
     path    => '/usr/local/bin/:/bin/',
-    command => 'sed -i "s/worker_processes 4;/worker_processes 8;/g" /etc/nginx/nginx.conf'
+    command => 'sed -i "s/15/4096/" /etc/default/nginx'
 }
 
 exec { 'restart ngnix server':
